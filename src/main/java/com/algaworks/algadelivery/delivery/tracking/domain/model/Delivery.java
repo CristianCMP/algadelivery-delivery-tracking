@@ -79,29 +79,29 @@ public class Delivery {
     public void editPreparationDetails(PreparationDetails details) {
         verifyIfCanBeEdited();
 
-        this.setSender(details.getSender());
-        this.setRecipient(details.getRecipient());
-        this.setDistanceFee(details.getDistanceFee());
-        this.setCourierPayout(details.getCourierPayout());
+        setSender(details.getSender());
+        setRecipient(details.getRecipient());
+        setDistanceFee(details.getDistanceFee());
+        setCourierPayout(details.getCourierPayout());
 
-        this.setExpectedDeliveryAt(OffsetDateTime.now().plus(details.getExpectedDeliveryTime()));
-        this.setTotalCost(this.getDistanceFee().add(this.getCourierPayout()));
+        setExpectedDeliveryAt(OffsetDateTime.now().plus(details.getExpectedDeliveryTime()));
+        setTotalCost(this.getDistanceFee().add(this.getCourierPayout()));
     }
 
     public void place() {
         verifyIfCanBePlaced();
-        this.setStatus(DeliveryStatus.WAITING_FOR_COURIER);
+        this.changeStatusTo(DeliveryStatus.WAITING_FOR_COURIER);
         this.setPlacedAt(OffsetDateTime.now());
     }
 
     public void pickUp(UUID courierId) {
         this.setCourierId(courierId);
-        this.setStatus(DeliveryStatus.IN_TRANSIT);
+        this.changeStatusTo(DeliveryStatus.IN_TRANSIT);
         this.setAssignedAt(OffsetDateTime.now());
     }
 
-    public void mackAsDelivery() {
-        this.setStatus(DeliveryStatus.DELIVERY);
+    public void markAsDelivered() {
+        this.changeStatusTo(DeliveryStatus.DELIVERY);
         this.setFulfilledAt(OffsetDateTime.now());
     }
 
@@ -133,6 +133,15 @@ public class Delivery {
         return this.getSender() != null
                 && this.getRecipient() != null
                 && this.getTotalCost() != null;
+    }
+
+    private void changeStatusTo(DeliveryStatus newStatus) {
+        if (newStatus != null && this.getStatus().canNotChangeTo(newStatus)) {
+            throw new DomainException(
+                    String.format("Invalid status transition from %s to %s", this.getStatus(), newStatus)
+            );
+        }
+        this.setStatus(newStatus);
     }
 
     @Getter
