@@ -1,15 +1,14 @@
 package com.algaworks.algadelivery.delivery.tracking.domain.model;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
+@Getter
+@Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Item {
-
     @EqualsAndHashCode.Include
     private UUID id;
     private String name;
@@ -17,9 +16,9 @@ public class Item {
 
     static Item brandNew(String name, Integer quantity) {
         Item item = new Item();
-        item.id = UUID.randomUUID();
-        item.name = name;
-        item.quantity = quantity;
+        item.setId(UUID.randomUUID());
+        item.setName(name);
+        item.setQuantity(quantity);
         return item;
     }
 }
