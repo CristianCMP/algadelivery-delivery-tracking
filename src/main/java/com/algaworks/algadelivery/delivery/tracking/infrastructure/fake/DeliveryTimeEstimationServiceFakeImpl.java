@@ -1,4 +1,4 @@
-package com.algaworks.algadelivery.delivery.tracking.infrastructore.fake;
+package com.algaworks.algadelivery.delivery.tracking.infrastructure.fake;
 
 import com.algaworks.algadelivery.delivery.tracking.domain.model.ContactPoint;
 import com.algaworks.algadelivery.delivery.tracking.domain.service.DeliveryEstimate;
