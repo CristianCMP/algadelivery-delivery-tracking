@@ -88,4 +88,5 @@ public class DeliveryPreparationService {
                 .multiply(new BigDecimal(distanceInKm))
                 .setScale(2, RoundingMode.HALF_EVEN);
     }
+
 }
