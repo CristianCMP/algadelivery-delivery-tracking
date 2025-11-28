@@ -1,6 +1,9 @@
 spring:
   application:
     name: delivery-tracking
+  cloud:
+    config:
+      enabled: false  # Add this to disable config client
   jpa:
     hibernate:
       ddl-auto: update
