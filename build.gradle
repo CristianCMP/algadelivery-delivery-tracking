@@ -26,6 +26,7 @@ repositories {
 
 ext {
 	set('springCloudVersion', "2025.0.0")
+	set('resilience4jVersion', "2.3.0")
 }
 
 dependencies {
@@ -33,6 +34,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation "io.github.resilience4j:resilience4j-spring-boot3:${resilience4jVersion}"
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.kafka:spring-kafka'
 	compileOnly 'org.projectlombok:lombok'
@@ -46,6 +48,7 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		mavenBom "io.github.resilience4j:resilience4j-bom:${resilience4jVersion}"
 	}
 }
 
